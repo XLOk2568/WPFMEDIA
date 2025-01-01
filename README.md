@@ -5,7 +5,10 @@
 ## 使用了这些项目
 
 
-[ILGPU](https://ilgpu.net/)
+[ILGPU](https://ilgpu.net/)(用于GPU加速)
 
 
-[iNKORE.UI.WPF.Modern](https://github.com/iNKORE-NET/UI.WPF.Modern/)
+[iNKORE.UI.WPF.Modern](https://github.com/iNKORE-NET/UI.WPF.Modern/)(现代化UI)
+
+
+[UpdateD](https://www.kancloud.cn/yu_xuan/updated_doc/)(用于更新)
