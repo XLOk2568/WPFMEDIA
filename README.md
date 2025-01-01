@@ -12,3 +12,6 @@
 
 
 [UpdateD](https://www.kancloud.cn/yu_xuan/updated_doc/)(用于更新)
+
+
+[VLC](https://github.com/videolan/vlc)(音视频实现)
