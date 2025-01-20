@@ -1,0 +1,25 @@
+<ui:Page x:Class="NavigationViewExample.Pages.MainControlPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NavigationViewExample.Pages"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      mc:Ignorable="d" 
+      d:DesignHeight="60" d:DesignWidth="800"
+      Title="Apps" Height="100">
+    <Grid Height="60">
+        <Canvas Width="174" HorizontalAlignment="Center" Height="58" VerticalAlignment="Center" >
+                <Button  Click="Button_Click" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="58">
+                    <Image x:Name="ControlPS" AutomationProperties.Name="Slice" Source="/photo/light/play.png" Stretch="Fill" Width="32" Height="32" />
+                </Button>
+                <Button  Click="Button_Click_old" AutomationProperties.Name="Pie" Height="58" Width="58">
+                <Image   x:Name="ControlOld" AutomationProperties.Name="Slice" Source="/photo/light/old.png" Stretch="Fill" Width="32" Height="32" />
+                </Button>
+                <Button  Click="Button_Click_next" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="116">
+                    <Image x:Name="ControlNext" AutomationProperties.Name="Slice" Source="/photo/light/next.png"  Stretch="Fill" Width="32" Height="32" />
+                </Button>
+            </Canvas>
+        <Image Stretch="Fill" Height="118" Width="138" Source="/photo/beta.png" HorizontalAlignment="Left" />
+    </Grid>
+</ui:Page>
