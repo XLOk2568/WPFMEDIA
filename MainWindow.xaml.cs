@@ -1,6 +1,5 @@
-﻿using iNKORE.UI.WPF.Modern;
+using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
-
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -24,44 +23,15 @@ namespace NavigationViewExample
     public partial class MainWindow : Window
     { 
         public string setting_path = $"{Environment.CurrentDirectory}" + "\\AppD\\setting.txt";//其他窗口也用这个
-        public List<string> setting_homelist = new List<string>();
+
         public int setting_homelist_count = 0;
         public MainWindow()
         {
             InitializeComponent();
         }
-        //NV控制页面切换
-        public Pages.AppsPage Page_Apps = new Pages.AppsPage();
-        public Pages.HomePage Page_Home = new Pages.HomePage();
-        public Pages.NvSetPage Page_Set = new Pages.NvSetPage();
-        public Pages.AboutPage About = new Pages.AboutPage();
-        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-        {
-            var item = sender.SelectedItem;
-            Page? page = null;
-
-            if (item == NavigationViewItem_Home)
-            {
-                page = Page_Home;
-            }
-            else if (item == NvSet)
-            {
-                page = Page_Set;
-            }
-            else if (item == NavigationViewItem_Apps)
-            {
-                page = Page_Apps;
-            }
-            else if (item == Aboutb)
-            {
-                page = About;
-            }
-            if (page != null)
-            {
-                NavigationView_Root.Header = page.Title;
-                Frame_Main.Navigate(page);
-            }
-        }
+        //这里说下方案，在主页弄两个frame，一个MainNv是用来作为用户主要的交互导航，另一个MainMini则是用来作为用户的进度条等等播放控制
+        public Pages.MainNvPage PageNv_Load= new Pages.MainNvPage();
+        public Pages.MainControlPage PageControl_Load = new Pages.MainControlPage();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -74,9 +44,9 @@ namespace NavigationViewExample
             }
             else if (System.IO.File.Exists(setting_path))
             {
-                setting_homelist = File.ReadAllText(setting_path).Split("${@}").ToList();//设置列表
+                List<string> setting_homelist = File.ReadAllText(setting_path).Split("${@}").ToList();
                 setting_homelist_count = setting_homelist.Count;
-                List<string> tall2 = File.ReadAllText(setting_path).Split(",").ToList();//读取和设置屏幕
+                List<string> tall2 = setting_homelist[0].Split(",").ToList();//读取和设置屏幕
                 Double happ = Double.Parse(tall2[0]);
                 Height = happ;
                 Double wapp = Double.Parse(tall2[1]);
@@ -98,9 +68,9 @@ namespace NavigationViewExample
                 {
                     ThemeManager.Current.ApplicationTheme = null;
                 }
-                NavigationView_Root.SelectedItem = NavigationViewItem_Home;
-
             }
+            Frame_Main_MainNv.Navigate(PageNv_Load);
+            Frame_Main_MainControl.Navigate(PageControl_Load);
         }
         private void _Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -110,6 +80,7 @@ namespace NavigationViewExample
             {
                 //文本文件中的第一行内容获取，并且被设置为app的屏幕值
                 //保存软件的屏幕位置和大小后退出
+                List<string> setting_homelist = File.ReadAllText(setting_path).Split("${@}").ToList();
                 string less = setting_homelist[0];
                 string iftxt = Height + "," + Width + "," + Left + "," + Top;
                 if (less == iftxt)
@@ -119,20 +90,14 @@ namespace NavigationViewExample
                 else if (less!= iftxt)
                 {
                     StreamWriter sm1 = new StreamWriter(setting_path);
-                    string T1 = "";
-                    for (int T0 = 0; 0 != setting_homelist_count; T0 += 1)
+                    int Count = setting_homelist_count - 2;
+                    for (int T0 = 1; T0 !=Count; T0 += 1)
                     {
-                        if (T0 != 0)
-                        {
-                            T1 = T1 + setting_homelist[T0];
-                        }
-                        else if (T0 == 0)
-                        {
-                            T1 = T1 + iftxt;
-                        }
+                        iftxt = iftxt + "${@}" + setting_homelist[T0];
                     }
-                    sm1.Write(T1);
-                    sm1.Close();
+                    iftxt = iftxt + "${@}" + setting_homelist[setting_homelist_count-1];
+                    sm1.Write(iftxt);
+                    sm1.Close();                        
                     Process.GetCurrentProcess().Kill();
                 }
             }
@@ -141,6 +106,5 @@ namespace NavigationViewExample
                 e.Cancel = true;
             }
         }
-     
     }
 }
