@@ -1,0 +1,17 @@
+<Window x:Class="NavigationViewExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NavigationViewExample" 
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+        mc:Ignorable="d"
+        ui:WindowHelper.UseModernWindowStyle="True" 
+        ui:WindowHelper.SystemBackdropType="None"
+        Title="MainWindow" 
+        Loaded="Window_Loaded" Closing="_Closing" Height="365" Width="753">
+    <Grid >        
+        <ui:Frame x:Name="Frame_Main_MainNv" Margin="0,0,0,100"/>
+        <ui:Frame x:Name="Frame_Main_MainControl" Height="100" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
