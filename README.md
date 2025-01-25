@@ -1,5 +1,5 @@
 # WPFMEDIA(简中)
-一个初学者都能看懂的项目，net9
+一个初学者都能看懂的项目，net8&C++
 
 
 ## 使用了这些项目
@@ -14,4 +14,4 @@
 [UpdateD](https://www.kancloud.cn/yu_xuan/updated_doc/)(用于更新)
 
 
-[VLC](https://github.com/videolan/vlc)(音视频实现)
+
