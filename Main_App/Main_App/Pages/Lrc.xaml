@@ -1,0 +1,16 @@
+﻿<ui:Page x:Name="X90" x:Class="NavigationViewExample.Pages.LrcPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NavigationViewExample.Pages"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="About" Loaded="X90_Loaded">
+    <Grid>
+        <ui:ScrollViewerEx x:Name="scrollViewer" VerticalScrollBarVisibility="Auto" >
+            <Grid x:Name="contentGrid"/>
+        </ui:ScrollViewerEx>
+    </Grid>
+</ui:Page>
