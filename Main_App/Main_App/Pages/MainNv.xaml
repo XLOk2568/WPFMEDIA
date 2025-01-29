@@ -25,9 +25,14 @@
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OEM}"/>
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
+            <ui:NavigationViewItem x:Name="NV_File" Content="File_P">
+                <ui:NavigationViewItem.Icon>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OEM}"/>
+                </ui:NavigationViewItem.Icon>
+            </ui:NavigationViewItem>
             <!--折叠导航-->
             <!--折叠依赖的控件-->
-            <ui:NavigationViewItem x:Name="Add_list" Content="Document options" SelectsOnInvoked="False" ToolTipService.ToolTip="Document options">
+            <ui:NavigationViewItem x:Name="Add_list" Content="Documentoptions" SelectsOnInvoked="False" ToolTipService.ToolTip="Document options">
                 <ui:NavigationViewItem.Icon>
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Page}"/>
                 </ui:NavigationViewItem.Icon>

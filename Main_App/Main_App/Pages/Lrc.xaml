@@ -7,7 +7,7 @@
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="About" Loaded="X90_Loaded">
+      Title="About">
     <Grid>
         <ui:ScrollViewerEx x:Name="scrollViewer" VerticalScrollBarVisibility="Auto" >
             <Grid x:Name="contentGrid"/>

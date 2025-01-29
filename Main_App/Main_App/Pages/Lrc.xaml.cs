@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -44,100 +45,64 @@ namespace NavigationViewExample.Pages
         private int _counter;
         private bool _isPaused;
         //激活时钟
-        private void Start__timer(object sender, RoutedEventArgs e)
+        private void Start__timer(object? sender, RoutedEventArgs? e)
         {
             _counter = 0;
-            _timer = new System.Threading.Timer(TimerCallback, null, 0, 1000);
+            _timer = new System.Threading.Timer(TimerCallback, null, 0, 1);
         }
         private int Move_ui_text_int = 0;//移动到第X个控件
+        private int Stop_move_Max_Int = 0;//设置最大值
+        private int x2 = 0;
         private void TimerCallback(object state)
         {
-            _counter += 1;
-            Dispatcher.Invoke(() =>
+            //最大值
+            if (Move_ui_text_int < Stop_move_Max_Int)
             {
-                int x2 = (Move_ui_text_int * 80) + 60;
-                scrollViewer.ScrollToVerticalOffset(x2); // 滚动到顶部
-                if (Move_ui_text_int < contentGrid.Children.Count)
+                if (_counter == listA_3[Move_ui_text_int] || _counter > listA_3[Move_ui_text_int] || _counter < listA_3[Move_ui_text_int] + 1)
                 {
-                    var targetButton = contentGrid.Children[Move_ui_text_int] as HyperlinkButton;
-                    if (targetButton != null)
+                    Dispatcher.Invoke(() =>
                     {
-                        targetButton.BringIntoView();
-                        targetButton.FontSize = 40; // 修改字体大小
-                        targetButton.Foreground = new SolidColorBrush(Colors.Red); // 修改字体颜色
-                    }
+                        x2 = (Move_ui_text_int * 80) + 60;
+                        scrollViewer.ScrollToVerticalOffset(x2); // 滚动到顶部
+                    });
+                    _counter += 1;
                 }
-            });
-        }
-        //暂停
-        private void BtnPauseTimer_Click(object sender, RoutedEventArgs e)
-        {
-            _isPaused = true;
-        }
-        //暂停后的启动
-        private void BtnResumeTimer_Click(object sender, RoutedEventArgs e)
-        {
-            _isPaused = false;
+            }
+            else if (_counter == Stop_move_Max_Int)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    x2 = (Move_ui_text_int * 80) + 60;
+                    scrollViewer.ScrollToVerticalOffset(x2); // 滚动到顶部
+                });
+                _counter = 0;
+                _isPaused = true;
+            }
         }
         //关闭计时器
         private void timer_Dispose(object sender, RoutedEventArgs e)
         {
             _timer?.Dispose();
         }
+        //当控制的控件页面播放时运行下面这个方法
         private void Read_N_F()
         {
 
         }
-        //获取列表长度并且更新控件
-        public List<int> list = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16 }; // 示例列表
-        private List<int> listA = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }; // 示例列表A
-        private List<string> listB = new List<string> { "你好", "我是", "小猪","6","efew","trewt","对俄","结尾","你好", "我是", "小猪", "6", "efew", "trewt", "对俄", "结尾" }; // 示例列表B
+        private List<int> listA_frist = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }; // 示例列表A
+        private List<string> listB_text = new List<string> { "你好", "我是", "小猪","6","efew","trewt","对俄","结尾","你好", "我是", "小猪", "6", "efew", "trewt", "对俄", "结尾" }; // 示例列表B
+        List<int> listA_3 = new List<int>();//将其换成毫秒的时间存储
         private string d;
+        //增加控件
         private void Start_read_LRC(object? sender, RoutedEventArgs? e)
         {
+            //清空操作
+            listA_frist.Clear();
+            listB_text.Clear();
             contentGrid.Children.Clear();
             contentGrid.RowDefinitions.Clear();
-
-            for (int i = 0; i < listA.Count; i++)
-            {
-                var hyperlinkButton = new HyperlinkButton
-                {
-                    Content = i < listB.Count ? listB[i] : $"Item {i + 1}",
-                    Tag = i,
-                    HorizontalAlignment = HorizontalAlignment.Stretch, // 水平拉伸
-                    VerticalAlignment = VerticalAlignment.Center // 垂直居中
-                };
-                hyperlinkButton.Click += HyperlinkButton_Click;
-                hyperlinkButton.Height = 80;
-                hyperlinkButton.FontSize = 16;
-                hyperlinkButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-                contentGrid.RowDefinitions.Add(new RowDefinition());
-                Grid.SetRow(hyperlinkButton, i);
-                contentGrid.Children.Add(hyperlinkButton);
-                int t90_ = (int)(WindowHeight - 200);
-                scrollViewer.Height = t90_;
-            }
-        }
-
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is HyperlinkButton hyperlinkButton)
-            {
-                d = hyperlinkButton.Content.ToString();
-                apprun_();
-            }
-        }
-        private void apprun_()
-        {
-            iNKORE.UI.WPF.Modern.Controls.MessageBox.Show($"apprun_事件触发，内容：{d}\n");
-        }
-        List<int> listA_3 = new List<int>();//将其换成毫秒
-        //获取歌词文本加载
-        private void X90_Loaded(object sender, RoutedEventArgs e)
-        {
-            //ButtonB_Click(null,null);
+            //获取歌词文本加载
             List<string> listA = new List<string>(); // 用于存储 [] 内的内容
-            List<string> listV = new List<string>(); // 用于存储 ] 右边的文本
             // 读取文件的所有行
             string[] lines = File.ReadAllLines(App.Temp_Lrc_txt);
             // 定义正则表达式来匹配 [] 内的内容和 ] 右边的文本
@@ -149,13 +114,11 @@ namespace NavigationViewExample.Pages
                 {
                     // 将匹配到的 [] 内的内容和 ] 右边的文本分别添加到 listA 和 listV 中
                     listA.Add(match.Groups[1].Value);
-                    listV.Add(match.Groups[2].Value);
+                    listB_text.Add(match.Groups[2].Value);
                 }
             }
-            // 将结果显示在文本框中
-            //txtListA.Text = string.Join(Environment.NewLine, listA);
-            //txtListV.Text = string.Join(Environment.NewLine, listV);
-            int C_1 = listA.Count-1;
+            // 将结果显示在文本框中设置时间的
+            int C_1 = listA.Count - 1;
             int Math_ing = 0;
             int MM_ = 0;
             int SS_ = 0;
@@ -170,13 +133,13 @@ namespace NavigationViewExample.Pages
                     MS_ = int.Parse(part_[2]);
                     Math_ing = MM_ * 60000 + SS_ * 1000 + MS_ * 10;
                 }
-                else if(listA[T_121].Length==9)
+                else if (listA[T_121].Length == 9)
                 {
                     var part_ = listA[T_121].Split(new char[] { ':', '.' });
                     MM_ = int.Parse(part_[0]);
                     SS_ = int.Parse(part_[1]);
                     MS_ = int.Parse(part_[2]);
-                    Math_ing = MM_ * 60000 + SS_ * 1000 + MS_ ;
+                    Math_ing = MM_ * 60000 + SS_ * 1000 + MS_;
                 }
                 else if (listA[T_121].Length == 7)
                 {
@@ -187,7 +150,42 @@ namespace NavigationViewExample.Pages
                     Math_ing = MM_ * 60000 + SS_ * 1000 + MS_ * 100;
                 }
                 listA_3.Add(Math_ing);
+                //将时间们转换成毫秒完成
+                //自动化增加控件
+                for (int i = 0; i < listA_frist.Count; i++)
+            {
+                var hyperlinkButton = new HyperlinkButton
+                {
+                    Content = i < listB_text.Count ? listB_text[i]:"",
+                    Tag = i,
+                    HorizontalAlignment = HorizontalAlignment.Stretch, // 水平拉伸
+                    VerticalAlignment = VerticalAlignment.Center // 垂直居中
+                };
+                hyperlinkButton.Click += HyperlinkButton_Click;
+                hyperlinkButton.Height = 80;
+                hyperlinkButton.FontSize = 16;
+                hyperlinkButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+                contentGrid.RowDefinitions.Add(new RowDefinition());
+                Grid.SetRow(hyperlinkButton, i);
+                contentGrid.Children.Add(hyperlinkButton);
+                int t90_ = (int)(WindowHeight - 30);
+                scrollViewer.Height = t90_;
             }
-         }
+                Stop_move_Max_Int = listB_text.Count - 1;
+                Start__timer(null,null);
+            }
+        }
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is HyperlinkButton hyperlinkButton)
+            {
+                d = hyperlinkButton.Content.ToString();
+                apprun_();
+            }
+        }
+        private void apprun_()
+        {
+            iNKORE.UI.WPF.Modern.Controls.MessageBox.Show($"apprun_事件触发，内容：{d}\n");
+        }
      }
 }

@@ -7,60 +7,36 @@
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern" xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
          mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Settings">
+      Title="Settings" Loaded="Page_Loaded" >
     <ui:ScrollViewerEx CanContentScroll="True"  VerticalScrollBarVisibility="Visible"  HorizontalScrollBarVisibility="Disabled" >
         <Grid>
             <!--about-->
             <ikw:SimpleStackPanel MaxWidth="1000"
-            HorizontalAlignment="Stretch"
-            >
-                <TextBlock 
-                Text="Section 1" />
-                <ui:SettingsCard Description="尽可能地使用显卡加速，目前仅支持英伟达的GPU，并且确保你的电脑上的CUDA可用"
-                    Header="GPU_Fast">
+            HorizontalAlignment="Stretch" >
+                <TextBlock Text="Section 1" />
+                <ui:SettingsCard Description="尽可能地使用显卡加速，目前仅支持英伟达的GPU，并且确保你的电脑上的CUDA可用" Header="GPU_Fast">
                     <ui:SettingsCard.HeaderIcon>
                         <Image Source="/photo/gpu_.png" Stretch="Fill"/>
                     </ui:SettingsCard.HeaderIcon>
-                    <ui:ToggleSwitch IsOn="True" />
+                    <ui:ToggleSwitch x:Name="Toggled_AM" Header="Toggle work" IsOn="True" Unloaded="Toggled_AM_Unloaded" OffContent="Do work" OnContent="Working" />
                 </ui:SettingsCard>
                 <!---->
-                <ui:SettingsExpander Description="呈现是深色或者是白色主题模式"
-                    Header="主题设置">
-                    <ui:SettingsExpander.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE91B;" />
-                    </ui:SettingsExpander.HeaderIcon>
-
-                    <Button Content="Content" />
-
-                    <ui:SettingsExpander.Items>
-                        <ui:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
-                            <Button Content="Button" />
-                        </ui:SettingsCard>
-                        <ui:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
-                        Header="This item can be clicked" IsClickEnabled="True" />
-                        <ui:SettingsCard ContentAlignment="Left">
-                            <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons" />
-                        </ui:SettingsCard>
-                    </ui:SettingsExpander.Items>
-                </ui:SettingsExpander>
-
                 <TextBlock Text="Section 2" />
-                <ui:SettingsCard Description="Another card to show grouping of cards"
-                Header="Another SettingsCard">
+                <ui:SettingsCard x:Name="D3_setting_small" Description="Another card to show grouping of cards" Header="Another SettingsCard">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE799;" />
+                        <Image Source="/photo/theme_big.png"/>
                     </ui:SettingsCard.HeaderIcon>
                     <!---->
                     <ui:DropDownButton x:Name="DropDownButton_Align" Width="72" Height="32" >
-                        <Image x:Name="Image_Theme" Source="/photo/gpu_.png" Width="70" Height="30"/>
+                        <Image x:Name="Image_Theme" Source="/photo/_11_theme.png" Width="54" Height="22" />
                         <ui:DropDownButton.Flyout>
                             <ui:MenuFlyout>
-                                <MenuItem Header="深色" Click="MenuItem_Click">
+                                <MenuItem Name="D3_er_zi_dark" Header="深色" Click="MenuItem_Click">
                                     <MenuItem.Icon>
                                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignLeft}"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="浅色" Tag="center" Click="MenuItem_Click_1">
+                                <MenuItem Name="D3_er_zi_light" Header="浅色" Tag="center" Click="MenuItem_Click_1">
                                     <MenuItem.Icon>
                                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignCenter}"/>
                                     </MenuItem.Icon>
@@ -69,38 +45,41 @@
                         </ui:DropDownButton.Flyout>
                     </ui:DropDownButton>
                 </ui:SettingsCard>
-
-                <ui:SettingsCard Description="Another card to show grouping of cards"
-                        Header="Yet another SettingsCard">
+                <!---->
+                <ui:SettingsCard Name="D3_IL" Description="Another card to show grouping of cards" Header="AnotherSettingsCard">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Glyph="&#xE768;" />
+                        <Image Source="/photo/IL_03.png"/>
                     </ui:SettingsCard.HeaderIcon>
-                    <Button Content="Content" />
+                    <!---->
+                    <ui:DropDownButton  Width="72" Height="32" >
+                        <Image  Source="/photo/IL_05.png" Width="54" Height="22" />
+                        <ui:DropDownButton.Flyout>
+                            <ui:MenuFlyout>
+                                <MenuItem Header="中文(简体)" Click="CN_C">
+                                    <MenuItem.Icon>
+                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignLeft}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="English" Click="EN_C">
+                                    <MenuItem.Icon>
+                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignCenter}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="日本語" Click="JP_C">
+                                    <MenuItem.Icon>
+                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignCenter}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Français" Click="FR_C">
+                                    <MenuItem.Icon>
+                                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.AlignCenter}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ui:MenuFlyout>
+                        </ui:DropDownButton.Flyout>
+                    </ui:DropDownButton>
                 </ui:SettingsCard>
-
-                <!--  Example 'About' section  -->
-                <TextBlock Text="About" />
-
-                <ui:SettingsExpander Description="© iNKORE Studios 2024. All rights reserved."
-                            Header="iNKORE.UI.WPF.Modern Gallery">
-                    <ui:SettingsExpander.HeaderIcon>
-                        <Image 
-                            Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </ui:SettingsExpander.HeaderIcon>
-                    <TextBlock Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
-                    Text="0.10.0" />
-                    <ui:SettingsExpander.Items>
-                        <ui:SettingsCard HorizontalContentAlignment="Left"
-                                ContentAlignment="Left">
-                            <StackPanel Margin="-12,0,0,0"
-                        Orientation="Vertical">
-                                <ui:HyperlinkButton Content="Link 1" />
-                                <ui:HyperlinkButton Content="Link 2" />
-                                <ui:HyperlinkButton Content="Link 3" />
-                            </StackPanel>
-                        </ui:SettingsCard>
-                    </ui:SettingsExpander.Items>
-                </ui:SettingsExpander>
+                        <!--  Example 'About' section  -->
                 <ui:HyperlinkButton Margin="0,8,0,0"
                     Content="Send feedback" />
             </ikw:SimpleStackPanel>

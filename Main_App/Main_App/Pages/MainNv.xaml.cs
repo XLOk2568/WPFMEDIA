@@ -33,6 +33,7 @@ namespace NavigationViewExample.Pages
         public Pages.NvSetPage Page_Set = new Pages.NvSetPage();
         public Pages.AboutPage About = new Pages.AboutPage();
         public Pages.LrcPage LRC_NV = new Pages.LrcPage();
+        public Pages.FilePage F_P=new Pages.FilePage();
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             var item = sender.SelectedItem;
@@ -54,9 +55,13 @@ namespace NavigationViewExample.Pages
             {
                 page = About;
             }
-            else if (item == NV_LRC) 
+            else if (item == NV_LRC)
             {
                 page = LRC_NV;
+            }
+            else if (item == NV_File)
+            {
+                page = F_P;
             }
             if (page != null)
             {
@@ -71,6 +76,8 @@ namespace NavigationViewExample.Pages
             NavigationViewItem_Home.Content =App.IL_all_list[5];
             NvSet.Content = App.IL_all_list[4];
             Aboutb.Content = App.IL_all_list[3];
+            Add_list.Content = App.IL_all_list[19];
+            NavigationViewItem_Apps.Content = App.IL_all_list[20];
         }
         //添加
         private int item_Count = 0;

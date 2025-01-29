@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TagLib.Ape;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
 namespace NavigationViewExample.Pages
@@ -42,14 +43,10 @@ namespace NavigationViewExample.Pages
         private void MenuItem_Click(object sender, RoutedEventArgs e)//主题设置
         {
             //重构
-            List<string> setting_homelist = File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = $"{Environment.CurrentDirectory}" + "\\AppD\\setting.txt";
-            int TrueCount = setting_homelist.Count;
-            string Data = setting_homelist[0] + "${@}" + "dark";
-            for (int for_ = 2; for_ != TrueCount; for_ += 1)
-            {
-                Data = Data + "${@}" + setting_homelist[for_];
-            }            
+            setting_homelist[1] = "dark";
+            string Data = string.Join("${@}", setting_homelist);
             StreamWriter sm1 = new StreamWriter(App.setting_path);
             sm1.Write(Data);
             sm1.Close();
@@ -59,14 +56,10 @@ namespace NavigationViewExample.Pages
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             //重构
-            List<string> setting_homelist = File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = $"{Environment.CurrentDirectory}" + "\\AppD\\setting.txt";
-            int TrueCount = setting_homelist.Count;
-            string Data = setting_homelist[0]+"${@}"+"light";
-            for (int for_=2; for_ != TrueCount; for_ += 1)
-            {
-                Data = Data + "${@}" + setting_homelist[for_];
-            }
+            setting_homelist[1] = "light";
+            string Data = string.Join("${@}", setting_homelist);
             StreamWriter sm1 = new StreamWriter(App.setting_path);
             sm1.Write(Data);
             sm1.Close();            
@@ -80,6 +73,97 @@ namespace NavigationViewExample.Pages
         }
 
         private void Changed_Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Page_Loaded(object? sender, RoutedEventArgs? e)
+        {
+            D3_setting_small.Header = App.IL_all_list[7];
+            D3_setting_small.Description = App.IL_all_list[18];
+            D3_er_zi_dark.Header = App.IL_all_list[8]; 
+            D3_er_zi_light.Header = App.IL_all_list[9];
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            if (setting_homelist[5] == "GPU")
+            {
+                App.Acceleration_Mode = "GPU";
+                Toggled_AM.IsOn = true;
+            }
+            else if (setting_homelist[5] == "CPU")
+            {
+                App.Acceleration_Mode = "CPU";
+                Toggled_AM.IsOn = false;
+            }
+        }
+        private void CN_C(object sender, RoutedEventArgs e)
+        {
+            //重构
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            string fliepath = App.setting_path;
+            setting_homelist[2] = "CN";
+            string Data = string.Join("${@}", setting_homelist);
+            StreamWriter sm1 = new StreamWriter(App.setting_path);
+            sm1.Write(Data);
+            sm1.Close();
+        }
+        private void EN_C(object sender, RoutedEventArgs e)
+        {
+            //重构
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            string fliepath = App.setting_path;
+            setting_homelist[2] = "EN";
+            string Data = string.Join("${@}", setting_homelist);
+            StreamWriter sm1 = new StreamWriter(App.setting_path);
+            sm1.Write(Data);
+            sm1.Close();
+        }
+        private void JP_C(object sender, RoutedEventArgs e)
+        {
+            //重构
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            string fliepath = App.setting_path;
+            setting_homelist[2] = "JP";
+            string Data = string.Join("${@}", setting_homelist);
+            StreamWriter sm1 = new StreamWriter(App.setting_path);
+            sm1.Write(Data);
+            sm1.Close();
+        }
+        private void FR_C(object sender, RoutedEventArgs e)
+        {
+            //重构
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            string fliepath = App.setting_path;
+            setting_homelist[2] = "FR";
+            string Data = string.Join("${@}", setting_homelist);
+            StreamWriter sm1 = new StreamWriter(App.setting_path);
+            sm1.Write(Data);
+            sm1.Close();
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
+            string fliepath = App.setting_path;
+            if (setting_homelist[5] == "GPU")
+            {
+                setting_homelist[5] = "CPU";
+                string Data = string.Join("${@}", setting_homelist);
+                StreamWriter sm1 = new StreamWriter(App.setting_path);
+                sm1.Write(Data);
+                sm1.Close();
+            }
+            else if (setting_homelist[5] == "CPU")
+            {
+                setting_homelist[5] = "GPU";
+                string Data = string.Join("${@}", setting_homelist);
+                StreamWriter sm1 = new StreamWriter(App.setting_path);
+                sm1.Write(Data);
+                sm1.Close();
+            }
+            Page_Loaded(null, null);
+        }
+
+        private void Toggled_AM_Unloaded(object sender, RoutedEventArgs e)
         {
 
         }

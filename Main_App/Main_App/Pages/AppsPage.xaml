@@ -11,5 +11,9 @@
 
     <Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.5" FontSize="24">Current Page: Apps</TextBlock>
+        <TextBox Margin="0,0,387,225" />
+        <TextBox Name="CDSCsd" Margin="0,0,387,225" />
+        <Button Content="Button" Click="BtnRunKernel_Click" Margin="232,286,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </ui:Page>

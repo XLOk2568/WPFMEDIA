@@ -44,7 +44,7 @@ namespace NavigationViewExample.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            meag.Text = "\nCopyright  ©2024-2025  @XiaLiang\n堆栈追踪：\n"+Environment.StackTrace;
+            meag.Text = "本软件项目开源:\nhttps://github.com/XLOk2568/WPFMEDIA\n当前软件版本:\n0.0.1.2\nCopyright  ©2024-2025  @XiaLiang\n当前版本支持的语言:中，英，日，法\n堆栈追踪：\n" + Environment.StackTrace;
             ring.Visibility = Visibility.Collapsed;
         }
         private async void Button_Click(object sender, RoutedEventArgs e)
