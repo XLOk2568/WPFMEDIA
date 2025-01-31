@@ -9,17 +9,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="File_P" Loaded="Page_Loaded" >
     <Grid>
-        <ui:ScrollViewerEx>
-            <StackPanel>
+        <ScrollViewer Margin="10,266,10,0">
+            <StackPanel >
                 <ListBox x:Name="listBox1"
                      AllowDrop="True"
                      PreviewMouseLeftButtonDown="ListBox1_MouseDown"
                      PreviewMouseMove="ListBox1_MouseMove"
                      Drop="ListBox1_Drop" VerticalAlignment="Bottom"/>
             </StackPanel>
-        </ui:ScrollViewerEx>
-        <Button x:Name="buttonB" Content="按钮B" Width="100" Click="ButtonB_Click" Margin="383,240,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="buttonC" Content="按钮C" Width="100" Margin="75,323,0,0" Click="ButtonC_Click" VerticalAlignment="Top"/>
+        </ScrollViewer>
+        <Button x:Name="buttonB" Content="按钮B" Width="100" Click="ButtonB_Click" Margin="316,235,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonC" Content="按钮C" Width="100" Margin="421,235,0,0" Click="ButtonC_Click" VerticalAlignment="Top"/>
         <Image Height="256" Width="256"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="\photo/GPU.png" Margin="60,10,0,0"/>
         <Canvas Margin="316,0,0,210" >
             

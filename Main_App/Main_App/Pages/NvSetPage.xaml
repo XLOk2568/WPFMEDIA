@@ -11,18 +11,17 @@
     <ui:ScrollViewerEx CanContentScroll="True"  VerticalScrollBarVisibility="Visible"  HorizontalScrollBarVisibility="Disabled" >
         <Grid>
             <!--about-->
-            <ikw:SimpleStackPanel MaxWidth="1000"
-            HorizontalAlignment="Stretch" >
+            <ikw:SimpleStackPanel Margin="28,0,28,0" >
                 <TextBlock Text="Section 1" />
-                <ui:SettingsCard Description="尽可能地使用显卡加速，目前仅支持英伟达的GPU，并且确保你的电脑上的CUDA可用" Header="GPU_Fast">
+                <ui:SettingsCard Description="尽可能地使用显卡加速，目前仅支持英伟达的GPU，并且确保你的电脑上的CUDA可用" Header="GPU_Fast" >
                     <ui:SettingsCard.HeaderIcon>
-                        <Image Source="/photo/gpu_.png" Stretch="Fill"/>
+                        <Image Source="/photo/gpu_.png" Stretch="Fill" />
                     </ui:SettingsCard.HeaderIcon>
                     <ui:ToggleSwitch x:Name="Toggled_AM" Header="Toggle work" IsOn="True" Unloaded="Toggled_AM_Unloaded" OffContent="Do work" OnContent="Working" />
                 </ui:SettingsCard>
                 <!---->
                 <TextBlock Text="Section 2" />
-                <ui:SettingsCard x:Name="D3_setting_small" Description="Another card to show grouping of cards" Header="Another SettingsCard">
+                <ui:SettingsCard x:Name="D3_setting_small" Description="Another card to show grouping of cards" Header="Another SettingsCard" >
                     <ui:SettingsCard.HeaderIcon>
                         <Image Source="/photo/theme_big.png"/>
                     </ui:SettingsCard.HeaderIcon>
@@ -46,7 +45,7 @@
                     </ui:DropDownButton>
                 </ui:SettingsCard>
                 <!---->
-                <ui:SettingsCard Name="D3_IL" Description="Another card to show grouping of cards" Header="AnotherSettingsCard">
+                <ui:SettingsCard Name="D3_IL" Description="Another card to show grouping of cards" Header="AnotherSettingsCard" >
                     <ui:SettingsCard.HeaderIcon>
                         <Image Source="/photo/IL_03.png"/>
                     </ui:SettingsCard.HeaderIcon>
@@ -79,7 +78,23 @@
                         </ui:DropDownButton.Flyout>
                     </ui:DropDownButton>
                 </ui:SettingsCard>
-                        <!--  Example 'About' section  -->
+                <!---->
+                <ui:SettingsCard ActionIconToolTip="Open in new window"
+    Click="ButtonRD_Click" IsClickEnabled="True"
+    Description="选择一个文件夹用来更新库"
+    Header="添加文件夹" IsEnabled="True" VerticalAlignment="Top">
+                    <ui:SettingsCard.HeaderIcon>
+                        <Image  Source="/photo/Add_4.png"/>
+                    </ui:SettingsCard.HeaderIcon>
+                    <ui:SettingsCard.ActionIcon>
+                        <ui:FontIcon Glyph="&#xE8A7;"/>
+                    </ui:SettingsCard.ActionIcon>
+                    <Canvas x:Name="view_ing" Width="43" Height="44" Visibility="Collapsed">
+                        <ui:ProgressRing Width="26" Height="26" HorizontalAlignment="Left"/>
+                        <Label Content="请稍等" Canvas.Top="26" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
+                    </Canvas>
+                </ui:SettingsCard>
+                <!--  Example 'About' section  -->
                 <ui:HyperlinkButton Margin="0,8,0,0"
                     Content="Send feedback" />
             </ikw:SimpleStackPanel>

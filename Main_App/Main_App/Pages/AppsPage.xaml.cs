@@ -55,10 +55,8 @@ namespace NavigationViewExample.Pages
             // 异步分割数组
             int cpuCount = 1200;
             int gpuCount = data.Length - cpuCount;
-
             Task<int[]> gpuDataTask = Task.Run(() => data.Take(gpuCount).ToArray());
             Task<int[]> cpuDataTask = Task.Run(() => data.Skip(gpuCount).ToArray());
-
             int[] gpuData = await gpuDataTask;
             int[] cpuData = await cpuDataTask;
             // 异步 CPU 排序部分
@@ -72,7 +70,6 @@ namespace NavigationViewExample.Pages
             // 异步加载_预编译内核
             Action<Index1D, ArrayView<int>, ArrayView<int>> loadedKernel = await Task.Run(() =>
                 accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>>(SortKernel));
-
             // 异步调用GPU 内核
             Task gpuSortTask = Task.Run(() =>
             {

@@ -20,6 +20,8 @@ using static System.Net.Mime.MediaTypeNames;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 using ILGPU.Runtime.Cuda;
 using ILGPU.Runtime.OpenCL;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
+using Path = System.IO.Path;
 
 namespace NavigationViewExample.Pages
 {
@@ -35,7 +37,7 @@ namespace NavigationViewExample.Pages
         }
         private void Theme_png_darkOrlight()
         {
-            Page_Loaded(null, null);
+            Button_Click_1(null, null);
         }
         //
         public delegate void Media_();
@@ -55,25 +57,58 @@ namespace NavigationViewExample.Pages
         {
 
         }
-
-        private void Page_Loaded(object? sender, RoutedEventArgs? e)
+        //播放顺序选择
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string path=$"{Environment.CurrentDirectory}" + "\\AppD\\setting.txt";
-            List<string> setting_homelist = File.ReadAllText(path).Split("${@}").ToList();
-            if (setting_homelist[1] == "dark")
+            if (App.setting_all_list[3] == "list")
             {
-                ControlPS.Source = new BitmapImage(new Uri("/photo/light/play.png", UriKind.Relative));
-                ControlOld.Source = new BitmapImage(new Uri("/photo/light/old.png", UriKind.Relative));
-                ControlNext.Source = new BitmapImage(new Uri("/photo/light/next.png", UriKind.Relative));
+                App.setting_all_list[3] = "auto"; // 设置为随机播放
             }
-            else if (setting_homelist[1] == "light")
+            else if (App.setting_all_list[3] == "auto")
             {
-                ControlPS.Source = new BitmapImage(new Uri("/photo/dark/play.png", UriKind.Relative));
-                ControlOld.Source = new BitmapImage(new Uri("/photo/dark/old.png", UriKind.Relative));
-                ControlNext.Source = new BitmapImage(new Uri("/photo/dark/next.png", UriKind.Relative));
+                App.setting_all_list[3] = "just"; // 设置为单曲播放
             }
+            else if (App.setting_all_list[3] == "just")
+            {
+                App.setting_all_list[3] = "list"; // 设置为顺序播放
+            }
+            List<string> setting_all_list = App.setting_all_list;
+            setting_all_list[3] = App.setting_all_list[3];
+            string Data = string.Join("${@}", setting_all_list);
+            StreamWriter sm1 = new StreamWriter(App.setting_path);
+            sm1.Write(Data);
+            sm1.Close();
+            setting_all_list.Clear();
+            App.settings_ = File.ReadAllText(App.setting_path);
+            App.setting_all_list = App.settings_.Split("${@}").ToList();
+            UpdatePlayModImage(null,null); // 更新播放模式图片
         }
 
+        private void UpdatePlayModImage(object? sender, RoutedEventArgs? e)
+        {
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string imagePath = "";
+            switch (App.setting_all_list[3])
+            {
+                case "list":
+                    imagePath = Path.Combine(appDirectory, "resource", "IxListSorted.png");
+                    break;
+                case "auto":
+                    imagePath = Path.Combine(appDirectory, "resource", "Auto.png");
+                    break;
+                case "just":
+                    imagePath = Path.Combine(appDirectory, "resource", "justone.png");
+                    break;
+            }
+            if (File.Exists(imagePath))
+            {
+                playmodimage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+            }
+            else
+            {
+                MessageBox.Show("图片文件不存在！");
+            }
+        }
         private void Button_Click_list_ing(object sender, RoutedEventArgs e)
         {
 
@@ -137,5 +172,6 @@ namespace NavigationViewExample.Pages
             }
 
         }
+        //播放顺序选择
     }
 }

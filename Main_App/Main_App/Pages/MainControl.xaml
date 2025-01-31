@@ -7,23 +7,50 @@
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       mc:Ignorable="d" 
       d:DesignHeight="100" d:DesignWidth="800"
-      Title="Apps" Height="100" Loaded="Page_Loaded" >
+      Title="Apps" Height="100" Loaded="UpdatePlayModImage">
     <Grid Height="100" >
         <Canvas Width="184" HorizontalAlignment="Center" Height="62" VerticalAlignment="Top" Margin="0,38,0,0" >
             <Button  Click="Button_Click" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="63">
-                <Image x:Name="ControlPS" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/light/play.png" Stretch="Fill" Width="32" Height="32" />
+                <Image x:Name="ControlPS" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/play_on.png" Stretch="Fill" Width="32" Height="32" />
             </Button>
             <Button  Click="Button_Click_old" AutomationProperties.Name="Pie" Height="58" Width="58">
-                <Image   x:Name="ControlOld" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/light/old.png" Stretch="Fill" Width="32" Height="32" />
+                <Image   x:Name="ControlOld" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/old.png" Stretch="Fill" Width="32" Height="32" />
             </Button>
             <Button  Click="Button_Click_next" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="126">
-                <Image x:Name="ControlNext" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/light/next.png"  Stretch="Fill" Width="32" Height="32" />
+                <Image x:Name="ControlNext" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/next.png"  Stretch="Fill" Width="32" Height="32" />
             </Button>
         </Canvas>
-        <Image Stretch="Fill" Height="118" Width="138" Source="/photo/beta.png" HorizontalAlignment="Left" />
-        <Button  Click="Button_Click_list_ing" AutomationProperties.Name="Pie" Height="58" Width="58" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
-            <Image x:Name="ControlNext1" x:FieldModifier="public" AutomationProperties.Name="Slice" Source="/photo/light/next.png"  Stretch="Fill" Width="32" Height="32" />
-        </Button>
+        <Image Stretch="Fill" Height="100" Width="138" Source="/photo/beta.png" HorizontalAlignment="Left" />
+        <Canvas HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="62" RenderTransformOrigin="0.5,0.5" Width="253" >
+            <Button AutomationProperties.Name="Pie" Height="58" Width="58" VerticalAlignment="Top" Click="Button_Click_1">
+                <Button.ToolTip>
+                    <ToolTip Content="播放顺序"/>
+                </Button.ToolTip>
+                <Image x:Name="playmodimage" AutomationProperties.Name="Slice" Stretch="Fill" Width="32" Height="32" />
+            </Button>
+            <!---->
+                <Button  Click="Button_Click_list_ing" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="63" >
+                <Button.ToolTip>
+                    <ToolTip Content="y音量"/>
+                </Button.ToolTip>
+                <Image AutomationProperties.Name="Slice" Source="/photo/V_1To50.png"  Stretch="Fill" Width="32" Height="32" />
+            </Button>
+            <!---->
+            <Button  Click="Button_Click_list_ing" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="126" HorizontalAlignment="Center" >
+                <Button.ToolTip>
+                    <ToolTip Content="当前播放列表"/>
+                </Button.ToolTip>
+                <Image AutomationProperties.Name="Slice" Source="/photo/list.png"  Stretch="Fill" Width="32" Height="32" />
+            </Button>
+            <!---->
+                <Button  Click="Button_Click_list_ing" AutomationProperties.Name="Pie" Height="58" Width="58" Canvas.Left="189" >
+                <Button.ToolTip>
+                    <ToolTip Content="更多"/>
+                </Button.ToolTip>
+                <Image AutomationProperties.Name="Slice" Source="/photo/VaadinEllipsisDotsH.png"  Stretch="Fill" Width="32" Height="32" />
+            </Button>
+        </Canvas>
+        <Label Width="126" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Content="00:00.000/00:00.000" Margin="0,13,0,0"/>
         <Slider x:Name="SD_1" Minimum="0" Maximum="10000" ValueChanged="SD_1_ValueChanged" Height="30" VerticalAlignment="Top" Margin="10,-2,10,0"/>
         <TextBox x:Name="T6" HorizontalAlignment="Left" Margin="0,27,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using iNKORE.UI.WPF.Modern;
 using iNKORE.UI.WPF.Modern.Controls;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,9 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TagLib.Ape;
+using File = System.IO.File;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
+using Path = System.IO.Path;
 
 namespace NavigationViewExample.Pages
 {
@@ -67,15 +70,7 @@ namespace NavigationViewExample.Pages
             Theme_MainControl_New?.Invoke();
         }
 
-        private void ComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
 
-        }
-
-        private void Changed_Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void Page_Loaded(object? sender, RoutedEventArgs? e)
         {
@@ -97,7 +92,6 @@ namespace NavigationViewExample.Pages
         }
         private void CN_C(object sender, RoutedEventArgs e)
         {
-            //重构
             List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = App.setting_path;
             setting_homelist[2] = "CN";
@@ -108,7 +102,6 @@ namespace NavigationViewExample.Pages
         }
         private void EN_C(object sender, RoutedEventArgs e)
         {
-            //重构
             List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = App.setting_path;
             setting_homelist[2] = "EN";
@@ -119,7 +112,6 @@ namespace NavigationViewExample.Pages
         }
         private void JP_C(object sender, RoutedEventArgs e)
         {
-            //重构
             List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = App.setting_path;
             setting_homelist[2] = "JP";
@@ -130,7 +122,6 @@ namespace NavigationViewExample.Pages
         }
         private void FR_C(object sender, RoutedEventArgs e)
         {
-            //重构
             List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
             string fliepath = App.setting_path;
             setting_homelist[2] = "FR";
@@ -139,7 +130,6 @@ namespace NavigationViewExample.Pages
             sm1.Write(Data);
             sm1.Close();
         }
-
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             List<string> setting_homelist = System.IO.File.ReadAllText(App.setting_path).Split("${@}").ToList();
@@ -162,10 +152,81 @@ namespace NavigationViewExample.Pages
             }
             Page_Loaded(null, null);
         }
-
-        private void Toggled_AM_Unloaded(object sender, RoutedEventArgs e)
+        //添加媒体文件
+        private List<string> read_disk = new List<string> { "asf", "wma", "wmv", "wm", "avi", "mpg", "mpge", "m1v", "mp2", "mp3", "mpa", "mpe", "m3u", "m4a", "mp4", "m4v", "mp4v", "3g2", "3gp2", "3gp", "flac" }; // 示例后缀列表
+        private List<string> listPath = new List<string>(); // ram中的路径
+        private List<string> listName = new List<string>(); // ram中的名字
+        private List<string> listNew = new List<string>(); // 新列表
+        private string path = ""; // 选择文件夹路径
+        private async void ButtonRD_Click(object sender, RoutedEventArgs e)
         {
+            view_ing.Visibility = Visibility.Visible;
+            var dialog = new CommonOpenFileDialog();
+            dialog.Title = "请选择文件夹";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                path = dialog.FileName;
+                await ProcessFilesAsync(path);
+            }
+            else
+            {
+                view_ing.Visibility = Visibility.Collapsed;
+            }
+        }
+        private async Task ProcessFilesAsync(string folderPath)
+        {
+            List<string> listOld = new List<string>();
+            List<string> listOldName = new List<string>();
+            List<string> listOldPath = new List<string>();
 
+            await Task.Run(() =>
+            {
+                foreach (string suffix in read_disk)
+                {
+                    string[] files = Directory.GetFiles(folderPath, $"*{suffix}", SearchOption.AllDirectories);
+                    foreach (string file in files)
+                    {
+                        string name = Path.GetFileNameWithoutExtension(file);
+                        string fullPath = file;
+
+                        listName.Add(name);
+                        listPath.Add(fullPath);
+                        listNew.Add(name + "$@" + fullPath);
+                    }
+                }
+                string userMediaDiskPath = Path.Combine(Directory.GetParent(App.Run_Time_Path).FullName, "User_Media", "UserMedia_Disk.txt");
+
+                if (File.Exists(userMediaDiskPath))
+                {
+                    string oldContent = File.ReadAllText(userMediaDiskPath);
+                    listOld = oldContent.Split(new string[] { "${@}" }, StringSplitOptions.None).ToList();
+
+                    foreach (string item in listOld)
+                    {
+                        string[] parts = item.Split(new string[] { "$@" }, StringSplitOptions.None);
+                        if (parts.Length == 2)
+                        {
+                            listOldName.Add(parts[0]);
+                            listOldPath.Add(parts[1]);
+                        }
+                    }
+
+                    foreach (string oldItem in listOld)
+                    {
+                        if (!listNew.Contains(oldItem))
+                        {
+                            listNew.Add(oldItem);
+                        }
+                    }
+                }
+                string newContent = string.Join("${@}", listNew);
+                File.WriteAllText(Path.Combine(Directory.GetParent(App.Run_Time_Path).FullName, "User_Media", "UserMedia_Disk.txt"), newContent);
+            });
+            listPath.Clear();
+            listName.Clear();
+            listNew.Clear();
+            view_ing.Visibility = Visibility.Collapsed;
         }
     }
 }

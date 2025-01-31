@@ -30,6 +30,11 @@
                     <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OEM}"/>
                 </ui:NavigationViewItem.Icon>
             </ui:NavigationViewItem>
+            <ui:NavigationViewItem x:Name="view_" Content="view">
+                <ui:NavigationViewItem.Icon>
+                    <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OEM}"/>
+                </ui:NavigationViewItem.Icon>
+            </ui:NavigationViewItem>
             <!--折叠导航-->
             <!--折叠依赖的控件-->
             <ui:NavigationViewItem x:Name="Add_list" Content="Documentoptions" SelectsOnInvoked="False" ToolTipService.ToolTip="Document options">

@@ -33,7 +33,8 @@ namespace NavigationViewExample.Pages
         public Pages.NvSetPage Page_Set = new Pages.NvSetPage();
         public Pages.AboutPage About = new Pages.AboutPage();
         public Pages.LrcPage LRC_NV = new Pages.LrcPage();
-        public Pages.FilePage F_P=new Pages.FilePage();
+        public Pages.File_ListPage F_P=new Pages.File_ListPage();
+
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             var item = sender.SelectedItem;
