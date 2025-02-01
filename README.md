@@ -11,7 +11,7 @@
 [iNKORE.UI.WPF.Modern](https://github.com/iNKORE-NET/UI.WPF.Modern/)(现代化UI)
 
 
-[UpdateD](https://www.kancloud.cn/yu_xuan/updated_doc/)(用于更新)
+[UpdateD](https://github.com/YUXUAN888/UpdateD)(用于更新)
 
 
 
