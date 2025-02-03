@@ -11,24 +11,21 @@
 ### 2.个性化设计，使用SlopeOne在GPU(支持CUDA(仅NVIDIA)和OpenCl(大部分CPU与GPU))本地计算机上进行个性化推荐算法，保护你的隐私和节约时间
 
 
-
-
-###
-
+### 3.除更新部分需要联网(当然，更新实现是使用2018k.cn实现的)外，其他均在你的计算机本地上运行
 
 ## 使用了这些项目
 
 
-[ILGPU](https://ilgpu.net/)(用于GPU加速)
+[ILGPU](https://ilgpu.net/)(用于GPU加速，主要用于一些算法加速)
 
 
 [iNKORE.UI.WPF.Modern](https://github.com/iNKORE-NET/UI.WPF.Modern/)(现代化UI)
 
 
-[UpdateD](https://github.com/YUXUAN888/UpdateD)(用于更新，此项目上改成了使用http的方法使用)
+[UpdateD](https://github.com/YUXUAN888/UpdateD)(用于更新，本项目上改成了使用http的方法使用)
 
 
-[LibSharp]()(检索歌词信息)
+[TagLibSharp](https://github.com/mono/taglib-sharp)(检索歌曲信息)
 
 
 []
