@@ -48,9 +48,9 @@ namespace NavigationViewExample.Pages
                 var item = new ListBoxItem();
                 var panel = new StackPanel { Orientation = Orientation.Horizontal };
 
-                var image = new Image { Width = 20, Height = 20, Margin = new Thickness(5) };
-                var centerLabel = new Label { Content = B_112[i], Width = 100, VerticalAlignment = VerticalAlignment.Center };
-                var rightLabel = new Label { Content = (i + 1).ToString(), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center };
+                var image = new Image { Width = 20, Height = 20, Margin = new Thickness(5,i*20+266,5,0)};
+                var centerLabel = new Label { Content = B_112[i],VerticalAlignment = VerticalAlignment.Center,Height=20};
+                var rightLabel = new Label { Content = (i + 1).ToString(), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center,Margin=new Thickness(0,i*20+266,5,0)};
 
                 panel.Children.Add(image);
                 panel.Children.Add(centerLabel);
