@@ -9,7 +9,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="File_P" Loaded="Page_Loaded" >
     <Grid>
-        <ScrollViewer Margin="10,266,10,0">
+        <ScrollViewer Margin="10,266,10,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+         ScrollViewer.VerticalScrollBarVisibility="Disable">
             <StackPanel >
                 <ListBox x:Name="listBox1"
                      AllowDrop="True"
