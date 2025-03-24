@@ -17,6 +17,9 @@
                 <BlurEffect Radius="1"  KernelType="Box"/>
             </Image.Effect>
         </Image>
+<!--用于控件列表生成-->
+<StackPanel>
+<ListBox X:Name="HomeListMedia"\>
+</StackPanel>
     </Grid>
-
 </ui:Page>
